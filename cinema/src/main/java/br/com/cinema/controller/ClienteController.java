@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
-
 import java.util.Optional;
 
 @Controller
@@ -32,5 +30,34 @@ public class ClienteController {
         }
 
         return "cliente-lista";
+    }
+
+    // FORMULÁRIO PARA NOVO CLIENTE
+    @GetMapping("/novo")
+    public String novoCliente(Model model) {
+        model.addAttribute("cliente", new Cliente());
+        return "cliente-form";
+    }
+
+    // SALVAR CLIENTE (CRIAR OU EDITAR)
+    @PostMapping("/salvar")
+    public String salvar(@ModelAttribute Cliente cliente) {
+        clienteRepository.save(cliente);
+        return "redirect:/clientes/listar";
+    }
+
+    // EDITAR CLIENTE
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        Cliente cliente = clienteRepository.findById(id).orElse(null);
+        model.addAttribute("cliente", cliente);
+        return "cliente-form";
+    }
+
+    // EXCLUIR CLIENTE
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
+        clienteRepository.deleteById(id);
+        return "redirect:/clientes/listar";
     }
 }
