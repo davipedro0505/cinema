@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo ao Cinema</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .menu {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .menu a {
+            display: block;
+            margin: 15px 0;
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🎬 Bem-vindo ao Cinema</h1>
+</header>
+
+<main>
+    <div class="menu">
+        <h2>Escolha uma opção:</h2>
+        <a href="/atores/listar">Lista de Atores</a>
+        <a href="/filmes/listar">Lista de Filmes</a>
+        <a href="/clientes/listar">Lista de Clientes</a>
+    </div>
+</main>
+
+</body>
+</html>
