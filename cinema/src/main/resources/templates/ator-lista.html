@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Atores</title>
+</head>
+<body>
+
+<h1>Lista de Atores</h1>
+
+<form action="/atores/listar" method="get">
+    <input type="text" name="nome" placeholder="Buscar por nome" th:value="${nome}">
+    <button type="submit">Buscar</button>
+</form>
+
+<br>
+<a href="/atores/novo">Cadastrar Novo Ator</a>
+<br><br>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr th:each="ator : ${atores}">
+        <td th:text="${ator.id}"></td>
+        <td th:text="${ator.nome}"></td>
+        <td th:text="${ator.idade}"></td>
+        <td>
+            <a th:href="@{'/atores/editar/' + ${ator.id}}">Editar</a> |
+            <a th:href="@{'/atores/excluir/' + ${ator.id}}"
+               onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
