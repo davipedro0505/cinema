@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Filmes</title>
+</head>
+<body>
+
+<h1>Lista de Filmes</h1>
+
+<form action="/filmes/listar" method="get">
+    <input type="text" name="titulo" placeholder="Buscar por título" th:value="${titulo}">
+    <button type="submit">Buscar</button>
+</form>
+
+<br>
+
+<a href="/filmes/novo">Cadastrar Novo Filme</a>
+
+<br><br>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Gênero</th>
+        <th>Duração</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr th:each="filme : ${filmes}">
+        <td th:text="${filme.id}"></td>
+        <td th:text="${filme.titulo}"></td>
+        <td th:text="${filme.genero}"></td>
+        <td th:text="${filme.duracao}"></td>
+
+        <td>
+            <a th:href="@{'/filmes/editar/' + ${filme.id}}">Editar</a> |
+            <a th:href="@{'/filmes/excluir/' + ${filme.id}}"
+               onclick="return confirm('Tem certeza que deseja excluir?')">
+                Excluir
+            </a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
