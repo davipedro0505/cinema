@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class FilmeController {
     @Autowired
     private FilmeRepository filmeRepository;
 
-    // listar filmes com filtro opcional por título
+    // LISTAR FILMES (COM FILTRO POR TÍTULO)
     @GetMapping("/listar")
     public String listar(@RequestParam(required = false) String titulo, Model model) {
 
@@ -34,5 +32,35 @@ public class FilmeController {
         model.addAttribute("titulo", titulo);
 
         return "filme-lista";
+    }
+
+    // FORMULÁRIO PARA NOVO FILME
+    @GetMapping("/novo")
+    public String novoFilme(Model model) {
+        model.addAttribute("filme", new Filme());
+        return "filme-form";
+    }
+
+    // SALVAR FILME (CRIAR OU EDITAR)
+    
+    @PostMapping("/salvar")
+    public String salvar(@ModelAttribute Filme filme) {
+        filmeRepository.save(filme);
+        return "redirect:/filmes/listar";
+    }
+
+    // EDITAR FILME
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        Filme filme = filmeRepository.findById(id).orElse(null);
+        model.addAttribute("filme", filme);
+        return "filme-form";
+    }
+
+    // EXCLUIR FILME
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
+        filmeRepository.deleteById(id);
+        return "redirect:/filmes/listar";
     }
 }
