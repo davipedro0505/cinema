@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+</head>
+<body>
+
+<h1>Lista de Clientes</h1>
+
+<form action="/clientes/listar" method="get">
+    <input type="number" name="id" placeholder="Buscar por ID" th:value="${id}">
+    <button type="submit">Buscar</button>
+</form>
+
+<br>
+<a href="/clientes/novo">Cadastrar Novo Cliente</a>
+<br><br>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>CPF</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Idade</th>
+        <th>Ações</th>
+    </tr>
+
+    <tr th:each="cliente : ${clientes}">
+        <td th:text="${cliente.id}"></td>
+        <td th:text="${cliente.cpf}"></td>
+        <td th:text="${cliente.nome}"></td>
+        <td th:text="${cliente.email}"></td>
+        <td th:text="${cliente.idade}"></td>
+        <td>
+            <a th:href="@{'/clientes/editar/' + ${cliente.id}}">Editar</a> |
+            <a th:href="@{'/clientes/excluir/' + ${cliente.id}}"
+               onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
